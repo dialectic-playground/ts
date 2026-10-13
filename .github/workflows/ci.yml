@@ -67,6 +67,11 @@ jobs:
         if: runner.os == 'Windows'
         run: command -v make || choco install make --no-progress -y
 
+      # macOS ships GNU Make 3.81; BASE-MAKEFILE requires >= 3.82.
+      - name: Use current GNU Make (macOS)
+        if: runner.os == 'macOS'
+        run: brew install make && echo "$(brew --prefix make)/libexec/gnubin" >> "$GITHUB_PATH"
+
       - name: Set up Node.js 24
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:

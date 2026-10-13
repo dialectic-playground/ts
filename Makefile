@@ -53,7 +53,8 @@ check-repository:
 toolchain:
 	python3 --version || python --version
 	make --version | head -1
-	node --version | tee /dev/stderr | grep -q '^v24\.'
+	@version="$$(node --version)"; echo "$$version"; echo "$$version" | grep -q '^v24\.' \
+		|| { echo "toolchain: expected a version matching ^v24\." >&2; exit 1; }
 	npm --version
 
 projects:
