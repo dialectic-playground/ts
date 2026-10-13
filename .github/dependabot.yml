@@ -1,5 +1,5 @@
 # Keeps GitHub Actions (SHA-pinned) and the toolchain image digest current.
-# Package ecosystems (npm + tsc) are added when the first project's manifests exist.
+# One npm entry per implemented project (package.json + package-lock.json in the project directory).
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -23,3 +23,20 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
+
+  - package-ecosystem: npm
+    directory: /00-hello-world
+    schedule:
+      interval: weekly
+    groups:
+      npm-00-hello-world:
+        patterns: ["*"]
+    commit-message:
+      prefix: build
+    # typescript-eslint supports only TypeScript < 6.1, and @types/node follows the Node.js
+    # release line (24); move either deliberately, together with what depends on it.
+    ignore:
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
