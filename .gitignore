@@ -10,3 +10,8 @@ __pycache__/
 *.swp
 .DS_Store
 Thumbs.db
+
+# Repository-specific (TypeScript projects: npm dependencies and tsc output)
+node_modules/
+dist/
+*.tsbuildinfo

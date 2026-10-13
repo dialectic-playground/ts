@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+// dp-hello launcher (BIN_DIR): runs the compiled program in ../dist (built by `make all`).
+import "../dist/main.js";
