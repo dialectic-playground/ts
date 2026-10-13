@@ -16,7 +16,7 @@ This repository implements the eleven projects of the
 specified to the byte by the curriculum and verified by its black-box tests on Linux, macOS,
 and Windows.
 
-**Status:** repository and toolchain ready; no projects implemented yet.
+**Status:** Implemented projects: 00-hello-world.
 
 ## TypeScript at a glance
 
@@ -38,6 +38,27 @@ and Windows.
 | Native CI | actions/setup-node (24) |
 
 `make toolchain` verifies that the container and native toolchains are on this release line.
+
+Each project is an npm package (`"type": "module"`): `package.json` and the committed
+`package-lock.json` live in the project directory and pin the development tools exactly, so
+the container and the native CI use identical versions. `make` installs them with `npm ci`
+into the project's `node_modules/` whenever the lockfile is newer than the installed tree.
+Sources and unit tests live in `src/` (tests in `src/test/`); `tsc` compiles them to `dist/`.
+
+| Purpose | Tool | Make target |
+| :-- | :-- | :-- |
+| Build | `tsc` (TypeScript 6.0, `"strict": true`) | `make all` |
+| Unit tests | `node:test`, run on the compiled output (`node --test`) | `make test` |
+| Lint | `tsc --noEmit`, ESLint (flat config, typescript-eslint strict type-checked), `prettier --check` | `make lint` |
+| Format | Prettier | `make format` |
+
+`BIN_DIR` is the project's `bin/`, which holds an extensionless `#!/usr/bin/env node`
+launcher that loads `dist/main.js`. `make install` copies the compiled program to
+`$(LIBDIR)/ts/<project>/` and writes a `#!/bin/sh` launcher to `$(BINDIR)`. Dependabot (npm)
+keeps each project's lockfile current.
+
+**Windows:** run the tools from Git Bash or MSYS2, which honor `#!` lines (or run
+`node <project>/bin/<tool>` directly).
 
 ## Layout
 
