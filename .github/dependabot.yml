@@ -22,7 +22,8 @@ updates:
     # `make toolchain`; Dependabot refreshes digests but never changes minor or major versions.
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
 
   - package-ecosystem: npm
     directory: /00-hello-world
@@ -37,6 +38,7 @@ updates:
     # release line (24); move either deliberately, together with what depends on it.
     ignore:
       - dependency-name: typescript
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+        update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
