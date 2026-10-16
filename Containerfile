@@ -6,6 +6,9 @@
 # release line is a deliberate change (keep `make toolchain` and the native CI in step).
 FROM docker.io/library/node:24-trixie-slim@sha256:173f125896c3b47ddf056734c7ea789d04595a6a08769a8f78e0df642781fb66
 
+# Debian keeps only the current version of each package, so apt versions cannot be pinned
+# reproducibly; the base image is pinned by digest instead.
+# hadolint ignore=DL3008
 RUN apt-get update \
     && apt-get install -y --no-install-recommends make python3 \
     && rm -rf /var/lib/apt/lists/*
