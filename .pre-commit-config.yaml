@@ -41,6 +41,8 @@ repos:
         name: check that scripts with shebangs are executable
       - id: pretty-format-json
         name: pretty format json
+        # Project workspaces format their JSON with their own toolchain (Prettier in 00-hello-world).
+        exclude: ^[0-9]{2}-[^/]+/
         args:
           - --autofix
           - --indent
