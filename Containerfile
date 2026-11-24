@@ -4,7 +4,7 @@
 # Official base image pinned by multi-architecture index digest, plus make and python3 (for the
 # curriculum's black-box runner). Dependabot (docker) refreshes the digest; moving to a new
 # release line is a deliberate change (keep `make toolchain` and the native CI in step).
-FROM docker.io/library/node:24-trixie-slim@sha256:173f125896c3b47ddf056734c7ea789d04595a6a08769a8f78e0df642781fb66
+FROM docker.io/library/node:24-trixie-slim@sha256:af02d57b57719b9657a45199a79264a9437940cd55b3c7b3fc99615654f124a0
 
 # Debian keeps only the current version of each package, so apt versions cannot be pinned
 # reproducibly; the base image is pinned by digest instead.
